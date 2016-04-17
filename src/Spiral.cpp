@@ -34,7 +34,91 @@ Note : Check the function Parameters ,Its a double pointer .
 #include "stdafx.h"
 #include<stdlib.h>
 
+int *res(int, int,int,int, int**, int*, int, int,int,int);
+
+
 int *spiral(int rows, int columns, int **input_array)
 {
+	int *result;
+
+	result = (int *)malloc(sizeof(int)*rows*columns);
+
+	if (input_array == NULL)
+		return NULL;
+	if (rows <= 0 || columns <= 0)
+		return NULL;
+
+	return res(rows, columns,-1,-1,input_array, result, 0,0,0,0);
+
 	return NULL;
+}
+
+int *res(int rows, int columns, int rs, int cs, int **in, int *result, int i, int j, int k,int count)
+{
+	if (columns == 0)
+		return result;
+	else if (rows == rs + 2 && j == columns - 1)
+	{
+		result[k] = in[i][j];
+		return result;
+	}
+	
+	else if (j < columns && i == rs + 1 && count == 0)
+	{
+		result[k] = in[i][j];
+		return res(rows, columns, rs, cs, in, result, i, ++j, ++k,count);
+	}
+
+	else if (j == columns && count==0)
+	{
+		count = 1;
+		rs = rs + 1;
+		i++;
+		j--;
+	 	return res(rows, columns, rs, cs, in, result, i, j, k,count);
+   }
+
+
+	else if (i < rows && j == columns-1&&count==1&& i>=0 && j>=0)
+	{
+		result[k] = in[i][j];
+		return res(rows, columns, rs, cs, in, result, ++i, j, ++k,count);
+	}
+	else if (i == rows)
+	{
+		columns = columns - 1;
+		count = 2;
+		i--;
+		j--;
+		return res(rows, columns, rs, cs, in, result, i, j, k,count);
+	}
+
+
+	else if (j > cs && i == rows - 1 && count == 2 && i >= 0 && j >= 0)
+	{
+		result[k] = in[i][j];
+		return res(rows, columns, rs, cs, in, result, i, --j, ++k,count);
+	}
+	else if (j == cs && i==rows-1)
+	{
+		rows = rows - 1;
+		count = 3;
+		return res(rows, columns, rs, cs, in, result, --i, ++j, k,count);
+
+	}
+
+	else if (i > rs && j == cs + 1 && count == 3 && i >= 0 && j >= 0)
+	{
+		result[k] = in[i][j];
+		return res(rows, columns, rs, cs, in, result, --i, j, ++k,count);
+	}
+
+	else if (i == rs  && j == cs+1)
+	{
+		cs = cs + 1;
+		count = 0;
+		
+		return res(rows, columns, rs, cs, in, result, ++i, ++j, k,count);
+	}
+	
 }
