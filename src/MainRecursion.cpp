@@ -40,12 +40,12 @@ int main(){
 	};
 
 	int m = 3, n = 5;
-	int x1 = 0, y1 = 0, x2 = 2, y2 = 2, res;
+	int x1 = 0, y1 = 0, x2 = 2, y2 = 3, res;
 	res = path_exists((int*)maze, m, n, x1, y1, x2, y2);
 
 
 	//int pairs = count_pairs_wrapper("abababababxxxyyy", 16);
-	printf("no of pairs : %d", res);
+	printf("path exists : %d", res);
 
 	
 	
